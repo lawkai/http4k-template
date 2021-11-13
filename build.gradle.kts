@@ -70,6 +70,8 @@ application {
 }
 
 tasks.named<Jar>("shadowJar") {
+    archiveBaseName.set("App")
+    archiveClassifier.set("")
     archiveVersion.set("")
 }
 
