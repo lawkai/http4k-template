@@ -24,6 +24,7 @@ jobs:
     needs: verify
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2.3.4
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
         env:
