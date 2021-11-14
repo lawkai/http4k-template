@@ -1,4 +1,4 @@
-name: Release
+name: Continuous Integration
 on:
   push:
     branches:
@@ -59,9 +59,7 @@ jobs:
           aws-region: us-east-2
       - name: Create ECR repo if necessary
         id: ecr-repo
-        uses: @2iq/aws-ecr-create-repository@v1
-        with:
-          ecr-name: http4k-template
+        uses: 2iq/aws-ecr-create-repository@v1
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
