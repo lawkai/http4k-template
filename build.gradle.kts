@@ -3,10 +3,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.10"
     application
     id("com.gorylenko.gradle-git-properties") version "2.3.1"
     id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.diffplug.spotless") version "6.2.1"
 }
 
 group = "com.github.lawkai"
@@ -15,11 +16,11 @@ repositories {
     mavenCentral()
 }
 
-val kotlinx_version="1.5.2"
-val http4k_version="4.16.2.0"
-val slf4j_version="1.7.32"
-val logback_version="1.2.6"
-val arrow_version="1.0.1"
+val kotlinx_version = "1.6.0"
+val http4k_version = "4.19.1.0"
+val slf4j_version = "1.7.35"
+val logback_version = "1.2.10"
+val arrow_version = "1.0.1"
 
 dependencies {
     // kotlin
@@ -39,11 +40,11 @@ dependencies {
     implementation("io.arrow-kt:arrow-fx-coroutines")
 
     // logging
-    implementation("org.slf4j:slf4j-api:${slf4j_version}")
-    runtimeOnly("ch.qos.logback:logback-classic:${logback_version}")
+    implementation("org.slf4j:slf4j-api:$slf4j_version")
+    runtimeOnly("ch.qos.logback:logback-classic:$logback_version")
 
     // http4k
-    implementation(platform("org.http4k:http4k-bom:${http4k_version}"))
+    implementation(platform("org.http4k:http4k-bom:$http4k_version"))
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-cloudnative")
     implementation("org.http4k:http4k-client-okhttp")
@@ -75,3 +76,19 @@ tasks.named<Jar>("shadowJar") {
     archiveVersion.set("")
 }
 
+spotless {
+    encoding("UTF-8")
+    kotlin {
+        ktfmt().dropboxStyle()
+        ktlint()
+        // configure in diktat-analysis.yml(https://github.com/analysis-dev/diktat)
+        diktat()
+    }
+    kotlinGradle {
+        ktlint()
+    }
+    json {
+        target("src/**/*.json")
+        simple()
+    }
+}

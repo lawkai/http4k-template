@@ -1,0 +1,8 @@
+- name: HEADER_MISSING_IN_NON_SINGLE_CLASS_FILE
+  enabled: false
+
+- name: FUNCTION_NAME_INCORRECT_CASE
+  enabled: false
+
+- name: TYPEALIAS_NAME_INCORRECT_CASE
+  enabled: false
