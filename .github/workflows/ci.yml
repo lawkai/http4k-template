@@ -30,10 +30,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          semantic_version: 17.1.1
+          semantic_version: 18
           extra_plugins: |
-            @semantic-release/changelog
-            @semantic-release/git@9.0.1
+            @semantic-release/changelog@6
+            @semantic-release/git@10
             @google/semantic-release-replace-plugin
   dockerise:
     needs: release
