@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory
 
 private const val PORT = 9_000
 
+val app = { request: Request -> Response(OK).body("Hello, ${request.query("name")}!") }
+
 fun main() {
-    val app = { request: Request -> Response(OK).body("Hello, ${request.query("name")}!") }
     val server = app.asServer(Undertow(PORT)).start()
 
     val logger = LoggerFactory.getLogger("main")
