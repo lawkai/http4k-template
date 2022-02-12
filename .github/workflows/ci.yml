@@ -32,6 +32,7 @@ jobs:
       - name: Assemble artifact
         run: ./gradlew assemble
       - name: Get application version from gradle.properties
+        id: version
         run: |
           echo "::set-output name=TAG_VERSION::$(grep 'version' gradle.properties | awk -F '=' '/version/ {print $2}')"
       - name: Configure AWS credentials
