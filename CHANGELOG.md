@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/lawkai/http4k-template/compare/v1.1.3...v1.1.4) (2022-02-12)
+
+
+### Bug Fixes
+
+* checkout source during publish ([d7be248](https://github.com/lawkai/http4k-template/commit/d7be24883331f9bbe727a819c831b8a927cb0843))
+
 ## [1.1.3](https://github.com/lawkai/http4k-template/compare/v1.1.2...v1.1.3) (2022-02-12)
 
 
