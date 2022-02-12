@@ -6,3 +6,9 @@
 
 - name: TYPEALIAS_NAME_INCORRECT_CASE
   enabled: false
+
+- name: MISSING_KDOC_TOP_LEVEL
+  enabled: false
+
+- name: MISSING_KDOC_CLASS_ELEMENTS
+  enabled: false
