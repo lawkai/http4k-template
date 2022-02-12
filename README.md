@@ -43,7 +43,7 @@ it will require all the necessary credentials being setup in AWS.
                 "ecr:CreateRepository",
                 "ecr:DescribeRepositories"
             ],
-            "Resource": "arn:aws:ecr:*:048917126438:repository/*"
+            "Resource": "arn:aws:ecr:*:<your-account-id>:repository/*"
         },
         {
             "Sid": "VisualEditor1",
