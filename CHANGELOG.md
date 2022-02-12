@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/lawkai/http4k-template/compare/v1.1.0...v1.1.1) (2022-02-12)
+
+
+### Bug Fixes
+
+* added id:version in ci.yml ([d9c4044](https://github.com/lawkai/http4k-template/commit/d9c404475d218f52c531f50703e04d37432477f4))
+
 # [1.1.0](https://github.com/lawkai/http4k-template/compare/v1.0.0...v1.1.0) (2022-02-12)
 
 
