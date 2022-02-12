@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/lawkai/http4k-template/compare/v1.1.1...v1.1.2) (2022-02-12)
+
+
+### Bug Fixes
+
+* update ci.yml ([01c5cbb](https://github.com/lawkai/http4k-template/commit/01c5cbb184950809d566d496649e53262fd06328))
+
 ## [1.1.1](https://github.com/lawkai/http4k-template/compare/v1.1.0...v1.1.1) (2022-02-12)
 
 
