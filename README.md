@@ -20,7 +20,7 @@ Setup
    pre-commit install --install-hooks -t pre-commit -t commit-msg -t pre-push
    ```
 2. If installed correctly, it will:
-   1. check whether the commit message is following [conventional-commit] format.
+   1. check whether the commit message is following [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
    2. run `./gradlew build` before push to make sure all tests passes.
 3. Please update `settings.gradle.kts` and `gradle.properties` to the correct name and version (0.0.1) of the project.
 4. remove the `CHANGELOG.md` file
