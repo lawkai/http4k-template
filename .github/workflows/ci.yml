@@ -4,22 +4,22 @@ on:
     branches:
       - main
 jobs:
-  build_and_publish:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2
       - name: Setup OpenJDK
         uses: actions/setup-java@v2
         with:
           java-version: 11
           distribution: 'adopt'
-          cache: gradle
-      - name: Validate Gradle wrapper checksum
-        uses: gradle/wrapper-validation-action@v1
-      - name: Run Unit Tests
-        run: ./gradlew check
+      - name: Run gradle check
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: check
       - name: Semantic Release
+        id: semantic
         uses: cycjimmy/semantic-release-action@v2
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,12 +29,40 @@ jobs:
             @semantic-release/changelog@6
             @semantic-release/git@10
             @google/semantic-release-replace-plugin
-      - name: Assemble artifact
-        run: ./gradlew assemble
-      - name: Get application version from gradle.properties
-        id: version
-        run: |
-          echo "::set-output name=TAG_VERSION::$(grep 'version' gradle.properties | awk -F '=' '/version/ {print $2}')"
+    outputs:
+      is_new_release: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_vesion }}
+  release:
+    runs-on: ubuntu-latest
+    needs: verify
+    if: needs.verify.outputs.is_new_release == 'true'
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - name: Setup OpenJDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'adopt'
+      - name: Run gradle assemble
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: assemble
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: App.jar
+          path: build/libs/App.jar
+          if-no-files-found: error
+  publish:
+    runs-on: ubuntu-latest
+    needs: [verify, release]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: App.jar
+          path: build/libs/App.jar
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -48,16 +76,12 @@ jobs:
         uses: int128/create-ecr-repository-action@v1
         with:
           repository: ${{ github.repository }}
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Build and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ github.repository }}
-          VERSION_TAG: ${{ steps.version.outputs.TAG_VERSION }}
+          VERSION_TAG: ${{ needs.verify.outputs.new_release_version }}
           SHA_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$VERSION_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHA_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
-      - name: Cleanup Gradle Cache
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
