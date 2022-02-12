@@ -24,6 +24,10 @@ Setup
    2. run `./gradlew build` before push to make sure all tests passes.
 3. Please update `settings.gradle.kts` and `gradle.properties` to the correct name and version (0.0.1) of the project.
 4. remove the `CHANGELOG.md` file
+5. This project also uses [spotless](https://github.com/diffplug/spotless) to make sure the project is properly formatted.
+   - uses [ktfmt](https://github.com/cortinico/ktfmt-gradle) `dropboxStyle` for formatting.
+   - uses [ktlint](https://github.com/JLLeitschuh/ktlint-gradle) for linting.
+   - uses [diktat](https://github.com/analysis-dev/diktat) for additional code linting (check `diktat-analysis.yml`).
 
 Amazon ECR Credentials
 ---
