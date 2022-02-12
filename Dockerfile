@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY build/libs/App.jar .
 
-CMD ["java", "-jar", "App.jar"]
+ENTRYPOINT ["java", "-jar", "App.jar"]
