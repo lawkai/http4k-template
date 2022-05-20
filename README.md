@@ -61,3 +61,4 @@ it will require all the necessary credentials being setup in AWS.
 2. Generate API Key and Secret for this user.
 3. Import the API Key as `AWS_ACCESS_KEY_ID` and API Secret as `AWS_SECRET_ACCESS_KEY` into the GitHub Project Settings.
    - Settings -> Secrets -> Actions and create the two secrets. (ex: https://github.com/lawkai/http4k-template/settings/secrets/actions)
+4. TODO
